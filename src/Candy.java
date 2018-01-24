@@ -1,44 +1,39 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author CHANGE_THIS_TO_YOUR_NAME
- */
 public class Candy extends DessertItem {
 
-    private int weight;
-    private double price;
+    //variables intialized for the weight and the price of the candy 
+    private double weight;
     private int pricePerLbs;
 
-    public Candy(String name, int weight, int pricePerLbs) {
+    // make a method candy class stores candy 
+    //the canadys name, weight and priceperlb 
+    public Candy(String name, double weight, int pricePerLbs) {
+         
         super(name);
-        this.weight = weight;
-        this.price = price;
         this.pricePerLbs = pricePerLbs;
+        this.weight = weight;
     }
+
+    //to string created to print the recipt 
     @Override
     public String toString() {
-       
-        int numSpacesInBetween = DessertShoppe.RECEIPT_WIDTH - (this.getName().length() + Integer.toString(this.getCost()).length());
-        String fromDessert = this.weight + " lbs. @ $" + DessertShoppe.cents2dollarsAndCents(pricePerLbs) + " lb.";
-        fromDessert += "\n" + this.getName();
-        for( int i = 0, i < (numSpacesInBetween) > 1) {
-            fromDessert += " ";
-            numSpacesInBetween--;
+        //the cost of the candy is converted to dollar fromc ents
+        String costD = DessertShoppe.cents2dollarsAndCents(this.getCost());
+        // the correct number of spaces is determined 
+        int spaces = DessertShoppe.RECEIPT_WIDTH - super.getName().length() - costD.length();
+        //for loop created to print out the exact amount of calculated spaces
+        for (int i = 0; i < spaces; i++) {
+            costD = " " + costD;
         }
-        fromDessert += DessertShoppe.cents2dollarsAndCents(this.getCost());
-        return fromDessert;
+        //the cost, name of candy and the spaces to create a recipt is printed out 
+        return this.weight + "@ $" + DessertShoppe.cents2dollarsAndCents(this.pricePerLbs) + "/lb" + "\n" + super.getName() + costD;
     }
+
     @Override
+    //cost of the candy is calculated 
     public int getCost() {
-        int price = weight * pricePerLbs;
-        return (int) (Math.round(this.weight * this.pricePerLbs));
+        //the weight is multipled by the price per lb 
+        double price = Math.round(weight * pricePerLbs);
+        //final price is returned
+        return (int) price;
     }
-;
-
-    }
-
+}
